@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "510149234919",
+    "project_id": "abast-control",
+    "storage_bucket": "abast-control.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:510149234919:android:62e468624f08fa994e5242",
+        "android_client_info": {
+          "package_name": "com.example.abast_app"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCx8Bo9FnZGXYPHunBRWU8ptxYS1QM6ZR4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

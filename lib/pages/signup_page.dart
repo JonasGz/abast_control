@@ -7,6 +7,7 @@ class SignupPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Colors.grey[300],
       appBar: AppBar(
         centerTitle: true,
         title: Text('Sign up Screen'),

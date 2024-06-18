@@ -31,9 +31,12 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         routes: {
-          '/': routes.home(context),
-          '/login': routes.login(context),
+          '/': routes.login(context),
+          // '/login': routes.login(context),
           '/signup': routes.signUp(context),
+          '/abast-page': routes.abastPage(context),
+          '/abast-add-page': routes.abastAddPage(context), 
+
         },
         title: 'Abastecimento Control',
         debugShowCheckedModeBanner: false,

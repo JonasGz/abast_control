@@ -2,9 +2,8 @@ import 'package:abast_app/models/model.dart';
 import 'package:flutter/material.dart';
 
 class ListAbastTile extends StatefulWidget {
-  const ListAbastTile(this.abast, {super.key});
-
   final Abast abast;
+  const ListAbastTile(this.abast, {super.key});
 
   @override
   State<ListAbastTile> createState() => _ListAbastTileState();
@@ -13,8 +12,13 @@ class ListAbastTile extends StatefulWidget {
 class _ListAbastTileState extends State<ListAbastTile> {
   @override
   Widget build(BuildContext context) {
+    String combustivel = widget.abast.combustivel.toString();
+    String valor = widget.abast.valor.toString();
     return Container(
-      child: ListTile(),
+      child: ListTile(
+        title: Text(combustivel),
+        subtitle: Text(valor),
+      ),
     );
   }
 }

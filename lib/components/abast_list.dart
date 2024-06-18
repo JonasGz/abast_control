@@ -11,15 +11,13 @@ class AbastList extends StatelessWidget {
   Widget build(BuildContext context) {
     final abastProvider = context.watch<AbastProvider>();
     final List<Abast>? listaAbast = abastProvider.abastList;
-    return Scaffold(
-      body: Center(
-        child: ListView.builder(
-          itemCount: listaAbast?.length,
-          itemBuilder: (context, index) {
-            Abast abast = listaAbast[index];
-            return ListAbastTile(abast);
-          },
-        ),
+    return Center(
+      child: ListView.builder(
+        itemCount: listaAbast?.length,
+        itemBuilder: (context, index) {
+          Abast abast = listaAbast![index];
+          return ListAbastTile(abast);
+        },
       ),
     );
   }

@@ -1,3 +1,4 @@
+import 'package:abast_app/components/drawer_component.dart';
 import 'package:abast_app/components/signup_form.dart';
 import 'package:flutter/material.dart';
 
@@ -9,15 +10,9 @@ class SignupPage extends StatelessWidget {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
-        centerTitle: true,
-        title: Text('Sign up Screen'),
-        leading: GestureDetector(
-          onTap: () {
-            Navigator.pushNamed(context, '/');
-          },
-          child: Icon(Icons.arrow_back),
-        ),
+        title: Text('Signup Page'),
       ),
+      drawer: DrawerComponent(),
       body: Container(
         alignment: Alignment.center,
         child: Column(

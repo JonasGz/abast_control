@@ -1,3 +1,4 @@
+import 'package:abast_app/components/take_picture.dart';
 import 'package:abast_app/pages/abast_add_page.dart';
 import 'package:abast_app/pages/abast_page.dart';
 import 'package:abast_app/pages/home_page.dart';
@@ -18,7 +19,7 @@ class Routes {
   }
 
   signUp(context) {
-    return (context) => const SignupPage();
+    return (context) => SignupPage();
   }
 
   abastPage(context) {
@@ -27,5 +28,9 @@ class Routes {
 
   abastAddPage(context) {
     return (context) =>const AbastAddPage();
+  }
+
+  takePicturePage(context) {
+    return (context) => TakePicture();
   }
 }

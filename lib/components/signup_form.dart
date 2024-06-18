@@ -1,33 +1,31 @@
 import 'package:abast_app/components/button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:abast_app/providers/auth_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
-class SignupForm extends StatelessWidget {
+class SignupForm extends StatefulWidget {
   SignupForm({super.key});
+
+  @override
+  State<SignupForm> createState() => _SignupFormState();
+}
+
+class _SignupFormState extends State<SignupForm> {
+  final _formKey = GlobalKey<FormState>();
+
   final emailController = TextEditingController();
+
   final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    void signUp() async {
-      try {
-        final credential = await FirebaseAuth.instance
-            .createUserWithEmailAndPassword(
-                email: emailController.text, password: passwordController.text);
-        Navigator.pushNamed(context, '/');
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'user-not-found') {
-          print('No user found for that email.');
-        } else if (e.code == 'wrong-password') {
-          print('Wrong password provided for that user.');
-        }
-      }
-    }
+    AuthProvider authProvider = context.watch<AuthProvider>();
 
     return Container(
       padding: const EdgeInsets.only(left: 50.0, right: 50.0),
       height: 300.0,
       child: Form(
+        key: _formKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -70,7 +68,13 @@ class SignupForm extends StatelessWidget {
               child: Button(
                 'Cadastrar',
                 () {
-                  signUp();
+                  final email = emailController.text;
+                  final password = passwordController.text;
+                  authProvider.signUp(email, password).then((response) => {
+                    if (response) {
+                      Navigator.pushNamed(context, '/abast-page')
+                    }
+                  });
                 },
               ),
             ),

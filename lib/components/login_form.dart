@@ -1,33 +1,29 @@
 import 'package:abast_app/components/button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:abast_app/providers/auth_provider.dart';
 
-class LoginForm extends StatelessWidget {
+class LoginForm extends StatefulWidget {
   LoginForm({super.key});
+
+  @override
+  State<LoginForm> createState() => _LoginFormState();
+}
+
+class _LoginFormState extends State<LoginForm> {
+  final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
 
   @override
   Widget build(BuildContext context) {
-    void signIn() async {
-      try {
-        final credential = await FirebaseAuth.instance
-            .signInWithEmailAndPassword(
-                email: emailController.text, password: passwordController.text);
-        Navigator.pushNamed(context, '/abast-page');
-      } on FirebaseAuthException catch (e) {
-        if (e.code == 'user-not-found') {
-          print('No user found for that email.');
-        } else if (e.code == 'wrong-password') {
-          print('Wrong password provided for that user.');
-        }
-      }
-    }
+    AuthProvider authProvider = context.watch<AuthProvider>();
 
     return Container(
       padding: const EdgeInsets.only(left: 50.0, right: 50.0),
       height: 300.0,
       child: Form(
+        key: _formKey,
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
@@ -66,7 +62,7 @@ class LoginForm extends StatelessWidget {
               children: [
                 GestureDetector(
                   onTap: () {
-                    signIn();
+                    
                   },
                   child: const Text(
                     'Esqueceu sua senha?',
@@ -83,13 +79,15 @@ class LoginForm extends StatelessWidget {
             SizedBox(
               width: double.infinity,
               height: 60.0,
-              child: Button(
-                'Acessar',
-                () {
-                  signIn();
+              child: Button('Acessar', () {
+              final email = emailController.text;
+              final password = passwordController.text;
+              authProvider.signIn(email, password).then((response) => {
+                if (response) {
+                  Navigator.of(context).pushNamed('/abast-page')
                 },
-              ),
-            ),
+              });
+              },),),
             SizedBox(
               width: double.infinity,
               height: 60.0,

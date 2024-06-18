@@ -2,6 +2,7 @@ import 'package:abast_app/pages/home_page.dart';
 import 'package:abast_app/pages/login_page.dart';
 import 'package:abast_app/pages/signup_page.dart';
 import 'package:abast_app/providers/abast_provider.dart';
+import 'package:abast_app/providers/auth_provider.dart';
 import 'package:abast_app/routes/routes.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -28,6 +29,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => AbastProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => AuthProvider(),
+        ),
       ],
       child: MaterialApp(
         routes: {
@@ -36,7 +40,7 @@ class MyApp extends StatelessWidget {
           '/signup': routes.signUp(context),
           '/abast-page': routes.abastPage(context),
           '/abast-add-page': routes.abastAddPage(context), 
-
+          '/take-picture-page': routes.takePicturePage(context), 
         },
         title: 'Abastecimento Control',
         debugShowCheckedModeBanner: false,

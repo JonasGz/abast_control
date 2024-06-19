@@ -27,7 +27,7 @@ class _LoginFormState extends State<LoginForm> {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            TextField(
+            TextFormField(
               controller: emailController,
               decoration: const InputDecoration(
                 labelText: 'Email',
@@ -41,8 +41,13 @@ class _LoginFormState extends State<LoginForm> {
                 fillColor: Colors.white70,
                 filled: true,
               ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Insira um email';
+                }
+              },
             ),
-            TextField(
+            TextFormField(
               controller: passwordController,
               decoration: const InputDecoration(
                 labelText: 'Senha',
@@ -56,14 +61,17 @@ class _LoginFormState extends State<LoginForm> {
                 fillColor: Colors.white70,
                 filled: true,
               ),
+              validator: (value) {
+                if (value == null || value.isEmpty) {
+                  return 'Insira uma senha';
+                }
+              },
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.end,
               children: [
                 GestureDetector(
-                  onTap: () {
-                    
-                  },
+                  onTap: () {},
                   child: const Text(
                     'Esqueceu sua senha?',
                     style: TextStyle(
@@ -79,15 +87,20 @@ class _LoginFormState extends State<LoginForm> {
             SizedBox(
               width: double.infinity,
               height: 60.0,
-              child: Button('Acessar', () {
-              final email = emailController.text;
-              final password = passwordController.text;
-              authProvider.signIn(email, password).then((response) => {
-                if (response) {
-                  Navigator.of(context).pushNamed('/abast-page')
+              child: Button(
+                'Acessar',
+                () {
+                  if (_formKey.currentState!.validate()) {
+                    final email = emailController.text;
+                    final password = passwordController.text;
+                    authProvider.signIn(email, password).then((response) => {
+                          if (response)
+                            {Navigator.of(context).pushNamed('/abast-page')},
+                        });
+                  }
                 },
-              });
-              },),),
+              ),
+            ),
             SizedBox(
               width: double.infinity,
               height: 60.0,

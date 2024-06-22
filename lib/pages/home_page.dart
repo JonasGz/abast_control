@@ -1,4 +1,6 @@
 import 'package:abast_app/components/button.dart';
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:greetingpk/greetingpk.dart';
 
@@ -34,6 +36,7 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
+    final user = FirebaseAuth.instance.currentUser;
     return Scaffold(
       backgroundColor: Colors.grey[300],
       body: Container(
@@ -52,21 +55,44 @@ class _HomePageState extends State<HomePage> {
             SizedBox(
               height: 20.0,
             ),
-            Button(
-              'Logar',
-              () {
-                Navigator.pushNamed(context, '/login');
-              },
-            ),
+            if (user == null)
+              Column(
+                children: [
+                  Button(
+                    'Logar',
+                    () {
+                      Navigator.pushNamed(context, '/login');
+                    },
+                  ),
+                  Button(
+                    'Cadastrar',
+                    () {
+                      Navigator.pushNamed(context, '/signup');
+                    },
+                  )
+                ],
+              )
+            else
+              Column(children: [
+                Button(
+                  'Abast List',
+                  () {
+                    Navigator.pushNamed(context, '/abast-page');
+                  },
+                ),
+                Button(
+                  'Add Abast',
+                  () {
+                    Navigator.pushNamed(context, '/abast-add-page');
+                  },
+                ),
+                Button('Logout', () {
+                  FirebaseAuth.instance.signOut();
+                })
+              ]),
             SizedBox(
               height: 10.0,
             ),
-            Button(
-              'Cadastrar',
-              () {
-                Navigator.pushNamed(context, '/signup');
-              },
-            )
           ],
         ),
       ),

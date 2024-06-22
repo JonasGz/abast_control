@@ -20,16 +20,7 @@ class LoginPage extends StatelessWidget {
           children: [
             const Icon(
               Icons.lock,
-              size: 100.0,
-            ),
-            const SizedBox(
-              height: 30,
-            ),
-            const Text(
-              'Seja bem-vindo!',
-              style: TextStyle(
-                color: Colors.black54,
-              ),
+              size: 80.0,
             ),
             const SizedBox(
               height: 25,

@@ -3,6 +3,9 @@ import 'package:flutter/material.dart';
 
 class AbastProvider extends ChangeNotifier {
   List<Abast>? abastList = [];
+  List<Abast>? _abastList = [];
+
+  late double soma;
 
   void addAbast(Abast abast) {
     abastList?.add(abast);
@@ -12,5 +15,13 @@ class AbastProvider extends ChangeNotifier {
   void removeAbast(Abast abast) {
     abastList?.remove(abast);
     notifyListeners();
+  }
+
+  List<Abast>? getAbasts() {
+    if (abastList != _abastList) {
+      _abastList = abastList;
+      notifyListeners();
+    }
+    return abastList;
   }
 }

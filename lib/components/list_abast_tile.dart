@@ -1,5 +1,5 @@
 import 'package:abast_app/models/model.dart';
-import 'package:abast_app/services/geolocator_service.dart';
+import 'package:abast_app/providers/location_provider.dart';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
@@ -19,11 +19,10 @@ class _ListAbastTileState extends State<ListAbastTile> {
     String combustivel = widget.abast.combustivel.toString();
     String valor = widget.abast.valor.toString();
     final location = context.watch<GeolocatorService>();
-    // final lat = location.lat;
-    // final long = location.long;
+    String endereco = location.endereco ?? 'Carregando endereço...';
     return ListTile(
       title: Text(combustivel),
-      // subtitle: Text('Localização: ${lat.toString()}, ${long.toString()}'),
+      subtitle: Text(endereco),
       trailing: Text(
         valor,
         style: const TextStyle(fontSize: 16.0),

@@ -4,7 +4,7 @@ import 'package:abast_app/pages/signup_page.dart';
 import 'package:abast_app/providers/abast_provider.dart';
 import 'package:abast_app/providers/auth_provider.dart';
 import 'package:abast_app/routes/routes.dart';
-import 'package:abast_app/services/geolocator_service.dart';
+import 'package:abast_app/providers/location_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -28,19 +28,19 @@ class MyApp extends StatelessWidget {
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
-          create: (context) => AbastProvider(),
+          create: (_) => AbastProvider(),
         ),
         ChangeNotifierProvider(
-          create: (context) => AuthProvider(),
+          create: (_) => AuthProvider(),
         ),
         ChangeNotifierProvider(
-          create: (context) => GeolocatorService(),
+          create: (_) => GeolocatorService(),
         ),
       ],
       child: MaterialApp(
         routes: {
-          '/': routes.login(context),
-          // '/login': routes.login(context),
+          '/': routes.home(context),
+          '/login': routes.login(context),
           '/signup': routes.signUp(context),
           '/abast-page': routes.abastPage(context),
           '/abast-add-page': routes.abastAddPage(context),

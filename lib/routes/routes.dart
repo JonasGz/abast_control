@@ -11,11 +11,11 @@ class Routes {
   Routes({required this.context});
 
   home(context) {
-    return (context) => const HomePage();
+    return (context) => HomePage();
   }
 
   login(context) {
-    return (context) => const LoginPage();
+    return (context) => LoginPage();
   }
 
   signUp(context) {
@@ -27,7 +27,7 @@ class Routes {
   }
 
   abastAddPage(context) {
-    return (context) =>const AbastAddPage();
+    return (context) => const AbastAddPage();
   }
 
   takePicturePage(context) {

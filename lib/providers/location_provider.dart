@@ -8,41 +8,58 @@ class GeolocatorService extends ChangeNotifier {
   double lat = 0.0;
   double long = 0.0;
   String? erro;
+  String? endereco;
 
   GeolocatorService() {
-    getAdress();
+    _initialize();
   }
 
-  getAdress() async {
+  Future<void> _initialize() async {
+    await getPosition();
+    await getAdress();
+  }
+
+  Future<void> getAdress() async {
     try {
       var key = 'AIzaSyBF2MKsXdIkom5jOsdVPZ8iHHl4oTF7fEk';
-      var lati = GeolocatorService().lat.toString();
-      var longi = GeolocatorService().long.toString();
-      var url = Uri.https('maps.googleapis.com',
-          'maps/api/geocode/json?latlng=${lati},${longi}&key=${key}');
+      var lati = lat.toString();
+      var longi = long.toString();
+      var url = Uri.https(
+        'maps.googleapis.com',
+        '/maps/api/geocode/json',
+        {
+          'latlng': '$lati,$longi',
+          'key': key,
+        },
+      );
       var response = await http.get(url);
       var corpo = response.body;
       if (response.statusCode == 200) {
         var dados = jsonDecode(corpo);
-        var endereco = dados['result'][0]['formatted_address'];
-        print(endereco);
+        if (dados['results'].isNotEmpty) {
+          endereco = dados['results'][0]['formatted_address'];
+        } else {
+          erro = 'Nenhum endereço encontrado.';
+        }
       } else {
-        erro = 'Erro ao obter endereço';
+        erro = 'Erro ao obter endereço: ${response.reasonPhrase}';
       }
     } catch (e) {
-      erro = e.toString();
+      erro = 'Exceção: $e ';
     }
+    notifyListeners();
   }
 
-  getPosition() async {
+  Future<void> getPosition() async {
     try {
       Position posicao = await _determinePosition();
       lat = posicao.latitude;
       long = posicao.longitude;
+      notifyListeners();
     } catch (e) {
       erro = e.toString();
+      notifyListeners();
     }
-    notifyListeners();
   }
 
   Future<Position> _determinePosition() async {

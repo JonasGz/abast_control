@@ -4,6 +4,7 @@ import 'package:abast_app/pages/signup_page.dart';
 import 'package:abast_app/providers/abast_provider.dart';
 import 'package:abast_app/providers/auth_provider.dart';
 import 'package:abast_app/routes/routes.dart';
+import 'package:abast_app/services/geolocator_service.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
@@ -32,6 +33,9 @@ class MyApp extends StatelessWidget {
         ChangeNotifierProvider(
           create: (context) => AuthProvider(),
         ),
+        ChangeNotifierProvider(
+          create: (context) => GeolocatorService(),
+        ),
       ],
       child: MaterialApp(
         routes: {
@@ -39,8 +43,8 @@ class MyApp extends StatelessWidget {
           // '/login': routes.login(context),
           '/signup': routes.signUp(context),
           '/abast-page': routes.abastPage(context),
-          '/abast-add-page': routes.abastAddPage(context), 
-          '/take-picture-page': routes.takePicturePage(context), 
+          '/abast-add-page': routes.abastAddPage(context),
+          '/take-picture-page': routes.takePicturePage(context),
         },
         title: 'Abastecimento Control',
         debugShowCheckedModeBanner: false,

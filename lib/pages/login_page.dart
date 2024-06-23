@@ -16,14 +16,11 @@ class LoginPage extends StatelessWidget {
       body: Container(
         alignment: Alignment.center,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             const Icon(
               Icons.lock,
-              size: 80.0,
-            ),
-            const SizedBox(
-              height: 25,
+              size: 70.0,
             ),
             LoginForm(),
           ],

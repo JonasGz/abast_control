@@ -31,4 +31,9 @@ class AuthProvider extends ChangeNotifier {
       return false;
     }
   }
+
+  void signOut() {
+    FirebaseAuth.instance.signOut();
+    notifyListeners();
+  }
 }

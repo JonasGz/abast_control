@@ -7,8 +7,12 @@ import 'package:abast_app/routes/routes.dart';
 import 'package:abast_app/providers/location_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
+import 'components/take_picture.dart';
 import 'firebase_options.dart';
 import 'package:provider/provider.dart';
+
+import 'pages/abast_add_page.dart';
+import 'pages/abast_page.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -39,12 +43,12 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         routes: {
-          '/': routes.home(context),
-          '/login': routes.login(context),
-          '/signup': routes.signUp(context),
-          '/abast-page': routes.abastPage(context),
-          '/abast-add-page': routes.abastAddPage(context),
-          '/take-picture-page': routes.takePicturePage(context),
+          '/': (context) => HomePage(),
+          '/login': (context) => LoginPage(),
+          '/signup': (context) => SignupPage(),
+          '/abast-page': (context) => AbastPage(),
+          '/abast-add-page': (context) => AbastAddPage(),
+          '/take-picture-page': (context) => TakePicture(),
         },
         title: 'Abastecimento Control',
         debugShowCheckedModeBanner: false,

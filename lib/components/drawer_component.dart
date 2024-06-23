@@ -1,18 +1,20 @@
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:abast_app/providers/auth_provider.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
 class DrawerComponent extends StatelessWidget {
   const DrawerComponent({super.key});
 
   bool checkUserLoggedIn() {
-    final user = FirebaseAuth.instance.currentUser;
-    print(user);
+    final user = firebase_auth.FirebaseAuth.instance.currentUser;
     return user != null;
   }
 
   @override
   Widget build(BuildContext context) {
     final loggedIn = checkUserLoggedIn();
+    AuthProvider authProvider = context.watch<AuthProvider>();
     print(loggedIn);
     return Drawer(
       child: ListView(children: [
@@ -32,13 +34,14 @@ class DrawerComponent extends StatelessWidget {
             Navigator.pushNamed(context, '/');
           },
         ),
-        ListTile(
-          leading: const Icon(Icons.app_registration_rounded),
-          title: const Text('Sign Up'),
-          onTap: () {
-            Navigator.pushNamed(context, '/signup');
-          },
-        ),
+        if (!checkUserLoggedIn())
+          ListTile(
+            leading: const Icon(Icons.app_registration_rounded),
+            title: const Text('Sign Up'),
+            onTap: () {
+              Navigator.pushNamed(context, '/signup');
+            },
+          ),
         if (checkUserLoggedIn()) ...[
           ListTile(
             leading: const Icon(Icons.key),
@@ -59,8 +62,7 @@ class DrawerComponent extends StatelessWidget {
           leading: const Icon(Icons.logout),
           title: const Text('Logout'),
           onTap: () {
-            FirebaseAuth.instance.signOut();
-            print(FirebaseAuth.instance.currentUser);
+            authProvider.signOut();
             Navigator.pushNamed(context, '/');
           },
         ),

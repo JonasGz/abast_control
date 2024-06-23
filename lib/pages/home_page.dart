@@ -1,10 +1,15 @@
 import 'package:abast_app/components/button.dart';
-import 'package:firebase_auth/firebase_auth.dart';
+import 'package:abast_app/components/drawer_component.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:greetingpk/greetingpk.dart';
+import 'package:provider/provider.dart';
+import 'package:firebase_auth/firebase_auth.dart' as firebase_auth;
+import 'package:abast_app/providers/auth_provider.dart';
 
 class HomePage extends StatefulWidget {
+  const HomePage({super.key});
+
   @override
   State<HomePage> createState() => _HomePageState();
 }
@@ -36,8 +41,13 @@ class _HomePageState extends State<HomePage> {
 
   @override
   Widget build(BuildContext context) {
-    final user = FirebaseAuth.instance.currentUser;
+    final user = firebase_auth.FirebaseAuth.instance.currentUser;
+    AuthProvider authProvider = context.watch<AuthProvider>();
     return Scaffold(
+      appBar: AppBar(
+        title: Text('Home Page'),
+      ),
+      drawer: const DrawerComponent(),
       backgroundColor: Colors.grey[300],
       body: Container(
         alignment: Alignment.center,
@@ -87,10 +97,10 @@ class _HomePageState extends State<HomePage> {
                   },
                 ),
                 Button('Logout', () {
-                  FirebaseAuth.instance.signOut();
+                  authProvider.signOut();
                 })
               ]),
-            SizedBox(
+            const SizedBox(
               height: 10.0,
             ),
           ],

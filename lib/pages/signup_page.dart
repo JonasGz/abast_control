@@ -27,20 +27,8 @@ class _SignupPageState extends State<SignupPage> {
       body: Container(
         alignment: Alignment.center,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
-            SizedBox(
-              height: 30,
-            ),
-            Text(
-              'Seja bem-vindo!',
-              style: TextStyle(
-                color: Colors.black54,
-              ),
-            ),
-            SizedBox(
-              height: 25,
-            ),
             SignupForm(),
           ],
         ),

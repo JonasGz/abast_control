@@ -18,14 +18,13 @@ class _LoginFormState extends State<LoginForm> {
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = context.watch<AuthProvider>();
-
+    var screenSize = MediaQuery.of(context).size.height;
     return Container(
       padding: const EdgeInsets.only(left: 50.0, right: 50.0),
-      height: 300.0,
       child: Form(
         key: _formKey,
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             TextFormField(
               controller: emailController,
@@ -46,6 +45,9 @@ class _LoginFormState extends State<LoginForm> {
                   return 'Insira um email';
                 }
               },
+            ),
+            SizedBox(
+              height: 10.0,
             ),
             TextFormField(
               controller: passwordController,
@@ -84,30 +86,74 @@ class _LoginFormState extends State<LoginForm> {
             const SizedBox(
               height: 20.0,
             ),
-            SizedBox(
-              width: double.infinity,
-              height: 60.0,
-              child: Button(
-                'Acessar',
-                () {
-                  if (_formKey.currentState!.validate()) {
-                    final email = emailController.text;
-                    final password = passwordController.text;
-                    authProvider.signIn(email, password).then((response) => {
-                          if (response)
-                            {Navigator.of(context).pushNamed('/abast-page')},
-                        });
-                  }
-                },
+            if (screenSize <= 667)
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  Button(
+                    'Login',
+                    () {
+                      if (_formKey.currentState!.validate()) {
+                        final email = emailController.text;
+                        final password = passwordController.text;
+                        authProvider
+                            .signIn(email, password)
+                            .then((response) => {
+                                  if (response)
+                                    {
+                                      Navigator.of(context)
+                                          .pushNamed('/abast-page')
+                                    },
+                                });
+                      }
+                    },
+                  ),
+                  Button(
+                    'Not register?',
+                    () {
+                      Navigator.pushNamed(context, '/signup');
+                    },
+                  ),
+                ],
+              )
+            else
+              Column(
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                children: [
+                  SizedBox(
+                    width: double.infinity,
+                    height: 60.0,
+                    child: Button(
+                      'Acessar',
+                      () {
+                        if (_formKey.currentState!.validate()) {
+                          final email = emailController.text;
+                          final password = passwordController.text;
+                          authProvider
+                              .signIn(email, password)
+                              .then((response) => {
+                                    if (response)
+                                      {
+                                        Navigator.of(context)
+                                            .pushNamed('/abast-page')
+                                      },
+                                  });
+                        }
+                      },
+                    ),
+                  ),
+                  SizedBox(
+                    height: 10.0,
+                  ),
+                  SizedBox(
+                    width: double.infinity,
+                    height: 50.0,
+                    child: Button('Não possui cadastro?', () {
+                      Navigator.pushNamed(context, '/signup');
+                    }),
+                  ),
+                ],
               ),
-            ),
-            SizedBox(
-              width: double.infinity,
-              height: 60.0,
-              child: Button('Não possui cadastro?', () {
-                Navigator.pushNamed(context, '/signup');
-              }),
-            ),
           ],
         ),
       ),

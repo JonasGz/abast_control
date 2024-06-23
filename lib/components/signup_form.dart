@@ -22,18 +22,19 @@ class _SignupFormState extends State<SignupForm> {
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = context.watch<AuthProvider>();
+    var screenSize = MediaQuery.of(context).size.height;
 
     return Container(
       padding: const EdgeInsets.only(left: 50.0, right: 50.0),
       child: Column(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        mainAxisAlignment: MainAxisAlignment.spaceEvenly,
         children: [
           imagePath != null
               ? Stack(
                   children: [
                     Image.file(
-                      width: 200,
-                      height: 200,
+                      width: 150,
+                      height: 100,
                       File(imagePath!),
                     ),
                     IconButton(
@@ -61,7 +62,7 @@ class _SignupFormState extends State<SignupForm> {
                   icon: const Icon(Icons.camera_alt),
                 ),
           SizedBox(
-            height: 20.0,
+            height: 10.0,
           ),
           Form(
             key: _formKey,
@@ -111,55 +112,103 @@ class _SignupFormState extends State<SignupForm> {
                     }
                   },
                 ),
-                const SizedBox(
+                SizedBox(
                   height: 20.0,
                 ),
-                SizedBox(
-                  width: double.infinity,
-                  height: 60.0,
-                  child: Button(
-                    'Cadastrar',
-                    () async {
-                      if (_formKey.currentState!.validate()) {
-                        final email = emailController.text;
-                        final password = passwordController.text;
-                        bool response =
-                            await authProvider.signUp(email, password);
-                        if (response) {
-                          try {
-                            var storage = FirebaseStorage.instance;
-                            var reference = storage.ref();
-                            var fileReference = reference.child("$email.jpg");
-                            var imageFile = File(imagePath!);
-                            if (!imageFile.existsSync()) {
-                              print('Arquivo não encontrado: $imagePath');
-                              return;
-                            }
-                            var uploadFile =
-                                await fileReference.putFile(imageFile);
-                            print('UPOU A IMAGEM!');
-                            Navigator.pushNamed(context, '/abast-page');
-                          } on FirebaseException catch (e) {
-                            print('Erro FirebaseStorage');
+                if (screenSize <= 667)
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                    children: [
+                      Button(
+                        'Register',
+                        () async {
+                          if (_formKey.currentState!.validate()) {
+                            final email = emailController.text;
+                            final password = passwordController.text;
+                            bool response =
+                                await authProvider.signUp(email, password);
+                            if (response) {
+                              try {
+                                var storage = FirebaseStorage.instance;
+                                var reference = storage.ref();
+                                var fileReference =
+                                    reference.child("$email.jpg");
+                                var imageFile = File(imagePath!);
+                                if (!imageFile.existsSync()) {
+                                  print('Arquivo não encontrado: $imagePath');
+                                  return;
+                                }
+                                var uploadFile =
+                                    await fileReference.putFile(imageFile);
+                                print('UPOU A IMAGEM!');
+                                Navigator.pushNamed(context, '/abast-page');
+                              } on FirebaseException catch (e) {
+                                print('Erro FirebaseStorage');
+                              }
+                            } else {}
                           }
-                        } else {}
-                      }
-                    },
+                        },
+                      ),
+                      Button(
+                        'Account?',
+                        () {
+                          Navigator.pushNamed(context, '/login');
+                        },
+                      ),
+                    ],
+                  )
+                else
+                  Column(
+                    children: [
+                      SizedBox(
+                        width: double.infinity,
+                        height: 60.0,
+                        child: Button(
+                          'Cadastrar',
+                          () async {
+                            if (_formKey.currentState!.validate()) {
+                              final email = emailController.text;
+                              final password = passwordController.text;
+                              bool response =
+                                  await authProvider.signUp(email, password);
+                              if (response) {
+                                try {
+                                  var storage = FirebaseStorage.instance;
+                                  var reference = storage.ref();
+                                  var fileReference =
+                                      reference.child("$email.jpg");
+                                  var imageFile = File(imagePath!);
+                                  if (!imageFile.existsSync()) {
+                                    print('Arquivo não encontrado: $imagePath');
+                                    return;
+                                  }
+                                  var uploadFile =
+                                      await fileReference.putFile(imageFile);
+                                  print('UPOU A IMAGEM!');
+                                  Navigator.pushNamed(context, '/abast-page');
+                                } on FirebaseException catch (e) {
+                                  print('Erro FirebaseStorage');
+                                }
+                              } else {}
+                            }
+                          },
+                        ),
+                      ),
+                      SizedBox(
+                        height: 10.0,
+                      ),
+                      SizedBox(
+                        width: double.infinity,
+                        height: 50.0,
+                        child: Button(
+                          'Já possui conta?',
+                          () {
+                            Navigator.pushNamed(context, '/login');
+                          },
+                        ),
+                      ),
+                    ],
                   ),
-                ),
-                SizedBox(
-                  height: 10.0,
-                ),
-                SizedBox(
-                  width: double.infinity,
-                  height: 40.0,
-                  child: Button(
-                    'Já possui conta?',
-                    () {
-                      Navigator.pushNamed(context, '/login');
-                    },
-                  ),
-                ),
               ],
             ),
           ),

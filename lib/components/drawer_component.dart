@@ -8,14 +8,16 @@ class DrawerComponent extends StatelessWidget {
 
   bool checkUserLoggedIn() {
     final user = firebase_auth.FirebaseAuth.instance.currentUser;
-    return user != null;
+    if (user != null) {
+      return true;
+    } else {
+      return false;
+    }
   }
 
   @override
   Widget build(BuildContext context) {
-    final loggedIn = checkUserLoggedIn();
     AuthProvider authProvider = context.watch<AuthProvider>();
-    print(loggedIn);
     return Drawer(
       child: ListView(children: [
         Row(
@@ -34,14 +36,22 @@ class DrawerComponent extends StatelessWidget {
             Navigator.pushNamed(context, '/');
           },
         ),
-        if (!checkUserLoggedIn())
+        if (!checkUserLoggedIn()) ...[
+          ListTile(
+            leading: const Icon(Icons.login),
+            title: const Text('Login'),
+            onTap: () {
+              Navigator.pushNamed(context, '/login');
+            },
+          ),
           ListTile(
             leading: const Icon(Icons.app_registration_rounded),
             title: const Text('Sign Up'),
             onTap: () {
               Navigator.pushNamed(context, '/signup');
             },
-          ),
+          )
+        ],
         if (checkUserLoggedIn()) ...[
           ListTile(
             leading: const Icon(Icons.key),

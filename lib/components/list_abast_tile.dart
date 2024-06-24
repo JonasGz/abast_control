@@ -1,8 +1,6 @@
 import 'package:abast_app/models/model.dart';
 import 'package:abast_app/providers/location_provider.dart';
-
 import 'package:flutter/material.dart';
-import 'package:geolocator/geolocator.dart';
 import 'package:provider/provider.dart';
 
 class ListAbastTile extends StatefulWidget {

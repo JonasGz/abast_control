@@ -7,7 +7,7 @@ import 'package:provider/provider.dart';
 import 'package:firebase_storage/firebase_storage.dart';
 
 class SignupForm extends StatefulWidget {
-  SignupForm({super.key});
+  const SignupForm({super.key});
 
   @override
   State<SignupForm> createState() => _SignupFormState();
@@ -61,7 +61,7 @@ class _SignupFormState extends State<SignupForm> {
                   },
                   icon: const Icon(Icons.camera_alt),
                 ),
-          SizedBox(
+          const SizedBox(
             height: 10.0,
           ),
           Form(
@@ -87,9 +87,10 @@ class _SignupFormState extends State<SignupForm> {
                     if (value == null || value.isEmpty) {
                       return 'Insira um email';
                     }
+                    return null;
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 10.0,
                 ),
                 TextFormField(
@@ -110,9 +111,10 @@ class _SignupFormState extends State<SignupForm> {
                     if (value == null || value.isEmpty) {
                       return 'Insira uma senha';
                     }
+                    return null;
                   },
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20.0,
                 ),
                 if (screenSize <= 667)
@@ -138,14 +140,14 @@ class _SignupFormState extends State<SignupForm> {
                                   print('Arquivo não encontrado: $imagePath');
                                   return;
                                 }
-                                var uploadFile =
-                                    await fileReference.putFile(imageFile);
-                                print('UPOU A IMAGEM!');
+
+                                await fileReference.putFile(imageFile);
+                                print('Upload com sucesso!');
                                 Navigator.pushNamed(context, '/abast-page');
                               } on FirebaseException catch (e) {
-                                print('Erro FirebaseStorage');
+                                print('Erro FirebaseStorage: $e');
                               }
-                            } else {}
+                            }
                           }
                         },
                       ),
@@ -182,19 +184,19 @@ class _SignupFormState extends State<SignupForm> {
                                     print('Arquivo não encontrado: $imagePath');
                                     return;
                                   }
-                                  var uploadFile =
-                                      await fileReference.putFile(imageFile);
-                                  print('UPOU A IMAGEM!');
+
+                                  await fileReference.putFile(imageFile);
+                                  print('Upload com sucesso!');
                                   Navigator.pushNamed(context, '/abast-page');
                                 } on FirebaseException catch (e) {
-                                  print('Erro FirebaseStorage');
+                                  print('Erro FirebaseStorage: $e');
                                 }
                               } else {}
                             }
                           },
                         ),
                       ),
-                      SizedBox(
+                      const SizedBox(
                         height: 10.0,
                       ),
                       SizedBox(

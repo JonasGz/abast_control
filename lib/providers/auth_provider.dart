@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 class AuthProvider extends ChangeNotifier {
   Future<bool> signUp(String email, String password) async {
     try {
-      final credential = await FirebaseAuth.instance
+      await FirebaseAuth.instance
           .createUserWithEmailAndPassword(email: email, password: password);
       return true;
     } on FirebaseAuthException catch (e) {
@@ -19,7 +19,7 @@ class AuthProvider extends ChangeNotifier {
 
   Future<bool> signIn(String email, String password) async {
     try {
-      final credential = await FirebaseAuth.instance
+      await FirebaseAuth.instance
           .signInWithEmailAndPassword(email: email, password: password);
       return true;
     } on FirebaseAuthException catch (e) {

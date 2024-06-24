@@ -3,7 +3,6 @@ import 'package:abast_app/pages/login_page.dart';
 import 'package:abast_app/pages/signup_page.dart';
 import 'package:abast_app/providers/abast_provider.dart';
 import 'package:abast_app/providers/auth_provider.dart';
-import 'package:abast_app/routes/routes.dart';
 import 'package:abast_app/providers/location_provider.dart';
 import 'package:flutter/material.dart';
 import 'package:firebase_core/firebase_core.dart';
@@ -28,7 +27,6 @@ class MyApp extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    final routes = Routes(context: context);
     return MultiProvider(
       providers: [
         ChangeNotifierProvider(
@@ -43,12 +41,12 @@ class MyApp extends StatelessWidget {
       ],
       child: MaterialApp(
         routes: {
-          '/': (context) => HomePage(),
+          '/': (context) => const HomePage(),
           '/login': (context) => LoginPage(),
           '/signup': (context) => SignupPage(),
-          '/abast-page': (context) => AbastPage(),
-          '/abast-add-page': (context) => AbastAddPage(),
-          '/take-picture-page': (context) => TakePicture(),
+          '/abast-page': (context) => const AbastPage(),
+          '/abast-add-page': (context) => const AbastAddPage(),
+          '/take-picture-page': (context) => const TakePicture(),
         },
         title: 'Abastecimento Control',
         debugShowCheckedModeBanner: false,

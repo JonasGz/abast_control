@@ -1,10 +1,6 @@
-import 'dart:io';
-
 import 'package:abast_app/components/drawer_component.dart';
 import 'package:abast_app/components/signup_form.dart';
-import 'package:abast_app/components/take_picture.dart';
 import 'package:flutter/material.dart';
-import 'package:permission_handler/permission_handler.dart';
 
 class SignupPage extends StatefulWidget {
   SignupPage({super.key});
@@ -21,12 +17,12 @@ class _SignupPageState extends State<SignupPage> {
     return Scaffold(
       backgroundColor: Colors.grey[300],
       appBar: AppBar(
-        title: Text('Signup Page'),
+        title: const Text('Signup Page'),
       ),
-      drawer: DrawerComponent(),
+      drawer: const DrawerComponent(),
       body: Container(
         alignment: Alignment.center,
-        child: Column(
+        child: const Column(
           mainAxisAlignment: MainAxisAlignment.spaceEvenly,
           children: [
             SignupForm(),

@@ -4,7 +4,7 @@ import 'package:provider/provider.dart';
 import 'package:abast_app/providers/auth_provider.dart';
 
 class LoginForm extends StatefulWidget {
-  LoginForm({super.key});
+  const LoginForm({super.key});
 
   @override
   State<LoginForm> createState() => _LoginFormState();
@@ -14,6 +14,17 @@ class _LoginFormState extends State<LoginForm> {
   final _formKey = GlobalKey<FormState>();
   final emailController = TextEditingController();
   final passwordController = TextEditingController();
+
+  void showAlertDialog() {
+    showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return const AlertDialog(
+            title: Text('Credenciais inválidas!'),
+            content: Text('Tente novamente com credenciais válidas.'),
+          );
+        });
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -44,9 +55,10 @@ class _LoginFormState extends State<LoginForm> {
                 if (value == null || value.isEmpty) {
                   return 'Insira um email';
                 }
+                return null;
               },
             ),
-            SizedBox(
+            const SizedBox(
               height: 10.0,
             ),
             TextFormField(
@@ -67,6 +79,7 @@ class _LoginFormState extends State<LoginForm> {
                 if (value == null || value.isEmpty) {
                   return 'Insira uma senha';
                 }
+                return null;
               },
             ),
             Row(
@@ -103,7 +116,9 @@ class _LoginFormState extends State<LoginForm> {
                                     {
                                       Navigator.of(context)
                                           .pushNamed('/abast-page')
-                                    },
+                                    }
+                                  else
+                                    {showAlertDialog()},
                                 });
                       }
                     },
@@ -136,7 +151,9 @@ class _LoginFormState extends State<LoginForm> {
                                       {
                                         Navigator.of(context)
                                             .pushNamed('/abast-page')
-                                      },
+                                      }
+                                    else
+                                      {showAlertDialog()},
                                   });
                         }
                       },

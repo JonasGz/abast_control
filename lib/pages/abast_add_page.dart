@@ -9,7 +9,7 @@ class AbastAddPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Add Page'),
+        title: const Text('Add Page'),
       ),
       drawer: DrawerComponent(),
       body: AbastAdd(),

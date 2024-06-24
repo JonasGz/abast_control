@@ -1,6 +1,5 @@
 import 'package:abast_app/components/button.dart';
 import 'package:abast_app/components/drawer_component.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'package:greetingpk/greetingpk.dart';
 import 'package:provider/provider.dart';
@@ -45,7 +44,7 @@ class _HomePageState extends State<HomePage> {
     AuthProvider authProvider = context.watch<AuthProvider>();
     return Scaffold(
       appBar: AppBar(
-        title: Text('Home Page'),
+        title: const Text('Home Page'),
       ),
       drawer: const DrawerComponent(),
       backgroundColor: Colors.grey[300],
@@ -58,11 +57,11 @@ class _HomePageState extends State<HomePage> {
               Icons.oil_barrel,
               size: 130.0,
             ),
-            SizedBox(
+            const SizedBox(
               height: 20.0,
             ),
             _greetingWidget ?? const CircularProgressIndicator(),
-            SizedBox(
+            const SizedBox(
               height: 20.0,
             ),
             if (user == null)

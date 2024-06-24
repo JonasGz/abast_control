@@ -24,7 +24,6 @@ void main() async {
 class MyApp extends StatelessWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
     return MultiProvider(
@@ -48,7 +47,7 @@ class MyApp extends StatelessWidget {
           '/abast-add-page': (context) => const AbastAddPage(),
           '/take-picture-page': (context) => const TakePicture(),
         },
-        title: 'Abastecimento Control',
+        title: 'Supply Control',
         debugShowCheckedModeBanner: false,
       ),
     );

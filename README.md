@@ -37,6 +37,7 @@ A página lista os abastecimentos adicionados, informando:
 
 ### Adicionar foto do usuário
 O app permite que o usuário tire uma fotografia durante o cadastro e salve para ter um avatar durante o uso do app.
+A fotografia é salva no FirebaseStorage.
 
 ### Localização
 O app utiliza o package [Geolocator](https://pub.dev/packages/geolocator) para obter as informações de latitude e longitude no momento do abastecimento e converte as informações em endereço válido com a [API Geocoding](https://developers.google.com/maps/documentation/geocoding/requests-reverse-geocoding?hl=pt-br).
@@ -46,7 +47,7 @@ O app possui um package [greetingspk](https://pub.dev/packages/greetingpk) que r
 
 O package foi desenvolvido e está disponível no repositório Pub: [greetingspk](https://pub.dev/packages/greetingpk)
 
-Obs: nessa primeira versão, possui suporte apenas para o formato horário de 24 horas.
+Obs: essa primeira versão suporta apenas o formato horário de 24 horas.
 
 <img src="https://i.imgur.com/YUmZHyN.png" width="300" />
 

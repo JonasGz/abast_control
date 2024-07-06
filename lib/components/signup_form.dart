@@ -2,6 +2,8 @@ import 'dart:io';
 
 import 'package:abast_app/components/button.dart';
 import 'package:abast_app/providers/auth_provider.dart';
+import 'package:abast_app/services/save_data.dart';
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:firebase_storage/firebase_storage.dart';
@@ -22,6 +24,7 @@ class _SignupFormState extends State<SignupForm> {
   @override
   Widget build(BuildContext context) {
     AuthProvider authProvider = context.watch<AuthProvider>();
+    CollectionReference user = FirebaseFirestore.instance.collection('users');
     var screenSize = MediaQuery.of(context).size.height;
 
     return Container(
@@ -174,6 +177,7 @@ class _SignupFormState extends State<SignupForm> {
                               bool response =
                                   await authProvider.signUp(email, password);
                               if (response) {
+                                SaveData().addUser(email, user);
                                 try {
                                   var storage = FirebaseStorage.instance;
                                   var reference = storage.ref();

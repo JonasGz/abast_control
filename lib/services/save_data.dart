@@ -8,12 +8,12 @@ class SaveData {
   }
 
   Future<void> addAbastDb(email, user, combustivel, valor) {
-    return user.doc(email).set((
+    return user.doc(email).set(
       {
-        'email:': email,
         'combustivel:': combustivel,
         'valor': valor,
       },
-    ));
+      SetOptions(merge: false),
+    );
   }
 }

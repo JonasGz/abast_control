@@ -19,7 +19,7 @@ class AbastAdd extends StatelessWidget {
     FirebaseAuth auth = FirebaseAuth.instance;
     final email = auth.currentUser!.email;
 
-    CollectionReference user = FirebaseFirestore.instance.collection('users');
+    CollectionReference user = FirebaseFirestore.instance.collection(email!);
 
     return Container(
       padding: const EdgeInsets.all(40.0),
